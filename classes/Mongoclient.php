@@ -35,11 +35,25 @@ class Mongoclient {
 
      function GetAllAsCursor() {
         return $this->Collection->find();
-     }
+    }
 
-     function Add($doc) {
+    function GetAsCursor($searchArr) {
+        return $this->Collection->find($searchArr);
+    }
+
+    function Create($doc) {
         try {    
             $this->Collection->insertOne($doc);
+        }
+        catch (Exception $e) {
+            return $e->GetMessage();
+        }
+        return '';
+    }
+
+    function AddUpdate($doc) {
+        try {    
+            $this->Collection->ReplaceOne($doc);
         }
         catch (Exception $e) {
             die($e->GetMessage());

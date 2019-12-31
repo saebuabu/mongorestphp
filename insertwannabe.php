@@ -6,7 +6,7 @@ require 'classes/Wannabe.php';
 $mymongo = new Mongoclient('myfamily');
 $mymongo->SetCollection('wannabe');
 
-$w = new Wannabe("Anais","Abuhanifah","Brechtje");
+$w = new Wannabe("Jamiro","Abuhanifah","Brechtje");
 
 $mymongo->Add((array) $w);
 

@@ -57,7 +57,8 @@ p {line-height: 2}
       <div class="w3-half">
         <h2>When</h2>
         <p><a href="./insertwannabe.php">Voeg een wannabe toe</a></p>
-        <p>eeeee</p>
+        <p><a href="./updatewannabe.php">Update een wannabe</a></p>
+        <p>...</p>
       </div>
       <div class="w3-half">
         <h2>Where</h2>
