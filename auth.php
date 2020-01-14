@@ -17,7 +17,7 @@ $fmember = new FamilyMemberClient('myfamily', 'family');
 $fmember->Auth($data->login, $data->password);
 if ($fmember->Auth($data->login, $data->password))
 {
-    JsonIO::WriteOk();
+    family\JsonIO::WriteOk();
 } else {
-    JsonIO::WriteError("Invalid credentials");
+    family\JsonIO::WriteError("Invalid credentials");
 }
