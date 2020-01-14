@@ -1,6 +1,9 @@
 <?php
+
+
 require 'vendor/autoload.php';
 require dirname(__FILE__).'/../../../keys.php';
+
 
 class Mongoclient {
     var $Client;
@@ -39,6 +42,16 @@ class Mongoclient {
 
     function GetAsCursor($searchArr) {
         return $this->Collection->find($searchArr);
+    }
+
+    function GetFirst($searchArr) {
+        $cursor =  $this->Collection->find($searchArr);
+
+        //return first
+        foreach ($cursor as $doc) return $doc;
+
+        // or return null;
+        return null; 
     }
 
     function Create($doc) {

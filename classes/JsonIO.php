@@ -1,5 +1,7 @@
 <?php
 
+namespace family;
+
 class JsonIO 
 {
 

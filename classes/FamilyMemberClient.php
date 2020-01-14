@@ -1,9 +1,15 @@
 <?php
+
+
 require 'classes/Mongoclient.php';
 require 'classes/FamilyMember.php';
+require_once 'classes/AuthTrait.php';
+
 
 class FamilyMemberClient extends Mongoclient
 {
+    use family\AuthTrait;
+
     private $fmember;
     function __construct($db,$coll)
     {
@@ -11,9 +17,18 @@ class FamilyMemberClient extends Mongoclient
         parent::SetCollection($coll);
     }
 
+    //authenticate
+    public function Auth($l, $p) {
+        //authenticate by username or email
+        $doc = $this->GetFirst(Array('username' => $l));
+        //var_dump($doc);
+        if (empty($doc))
+             $doc = $this->GetFirst(Array('email' => $l));
 
-    public function Auth() {
-    
+        if (empty($doc))
+            return false;
+
+        return $this->VerifyPassword($p, $doc->password);
     }
 
     public function CreateOne($u,$e,$p) {

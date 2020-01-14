@@ -9,16 +9,15 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 require 'classes/FamilyMemberClient.php';
 require 'classes/JsonIO.php';
 
-
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
 // connectie naar database, collectie
 $fmember = new FamilyMemberClient('myfamily', 'family');
-$res = $fmember->CreateOne($data->username, $data->email, $data->password);
-
-if ($res  == '') {
+$fmember->Auth($data->login, $data->password);
+if ($fmember->Auth($data->login, $data->password))
+{
     JsonIO::WriteOk();
 } else {
-    JsonIO::WriteError($res);
+    JsonIO::WriteError("Invalid credentials");
 }

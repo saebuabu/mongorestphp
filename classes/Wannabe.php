@@ -1,6 +1,8 @@
 <?php
-require 'vendor/autoload.php';
+use MongoDB\BSON;
+namespace family;
 
+require 'vendor/autoload.php';
 
 class Wannabe {
     public $_id;
@@ -10,7 +12,7 @@ class Wannabe {
 
     function __construct($name, $father, $mother)
     {
-        $this->_id = new MongoDB\BSON\ObjectId();
+        $this->_id = new ObjectId();
         $this->name = $name;
         $this->father = $father;
         $this->mother = $mother;

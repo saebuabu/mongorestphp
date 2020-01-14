@@ -1,11 +1,14 @@
 <?php
 require 'vendor/autoload.php';
+require_once 'classes/AuthTrait.php';
 
 class FamilyMember {
     public $_id;
     public $username;
     public $email;
     public $password;
+
+    use family\AuthTrait;
 
     function __construct($u, $e, $p)
     {
@@ -15,11 +18,5 @@ class FamilyMember {
         $this->password = $this->HashPassword($p);
     }
 
-    private function HashPassword($passwd) {
-        $options = [
-            'cost' => 12,
-        ];
-        return password_hash($passwd, PASSWORD_BCRYPT, $options);
-    }
-
+ 
 }
