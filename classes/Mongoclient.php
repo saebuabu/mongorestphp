@@ -15,7 +15,7 @@ class Mongoclient {
     {
         try{
             $this->Client = new MongoDB\Client(
-            'mongodb+srv://'.USRPASS.'@cluster0-2d82g.azure.mongodb.net/family?retryWrites=true&w=majority'
+            'mongodb+srv://'.USRPASS.'@'.MONGOURL.'/family?retryWrites=true&w=majority'
             );
         } catch (Exception $e) {
             die($e->GetMessage());
@@ -36,14 +36,17 @@ class Mongoclient {
         //return $this->Collection;
      }
 
+     //Alle documents uit een collection ophalen
      function GetAllAsCursor() {
         return $this->Collection->find();
     }
 
+    //Gefilterde lijst ophalen
     function GetAsCursor($searchArr) {
         return $this->Collection->find($searchArr);
     }
 
+    //De eerste rij ophalen
     function GetFirst($searchArr) {
         $cursor =  $this->Collection->find($searchArr);
 
@@ -55,6 +58,18 @@ class Mongoclient {
     }
 
     function Create($doc) {
+
+        //Empty validation, werkt niet deze validatie
+        $assA = [];
+        foreach ($doc as $key => $value) {
+            $assA[$key] = $value;
+        }
+        foreach ($doc->requiredFields as $field) {
+            if ( empty($assA[$field]) ) {
+                return "Insert error: $field is empty";
+            }
+        } // einde validatie
+
         try {    
             $this->Collection->insertOne($doc);
         }

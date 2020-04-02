@@ -1,6 +1,5 @@
 <?php
 
-namespace family;
 
 class JsonIO 
 {
@@ -11,9 +10,9 @@ class JsonIO
          // set response code - 201 OK
         http_response_code(201);
 
-        $arr['status'] = 'ok';
-        $arr['response'] = $arr;
-        echo json_encode($arr);
+        $resarr['status'] = 'ok';
+        $resarr['response'] = $arr;
+        echo json_encode($resarr);
         
     }
 

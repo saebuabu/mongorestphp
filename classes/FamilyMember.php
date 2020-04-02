@@ -10,6 +10,8 @@ class FamilyMember {
 
     use family\AuthTrait;
 
+    private $requiredFields = ["username", "email", "password"];
+
     function __construct($u, $e, $p)
     {
         $this->_id = new MongoDB\BSON\ObjectId();
