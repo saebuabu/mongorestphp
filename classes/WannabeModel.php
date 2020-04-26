@@ -9,7 +9,6 @@ class WannabeModel {
     public $mother;
     public $email;
 
-    public $requiredFields = ["name","father","mother","email"];
 
     function __construct($name, $father, $mother, $email)
     {

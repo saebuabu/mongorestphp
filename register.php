@@ -12,6 +12,8 @@ require 'classes/JsonIO.php';
 $wannabe = new WannabeClient('myfamily', 'wannabe');
 if (empty($wannabe->Add($_POST['name'], $_POST['father'], $_POST['mother'], $_POST['email'])))
 {
+
+    mail("abu.saebu@gmail.com","Aanmelding wannabe saebu.nl", "Aanmelding van {$_POST['name']}  {$_POST['email']}");
     JsonIO::WriteOk();
 } else {
     JsonIO::WriteError("Failed : " + $wannabe);

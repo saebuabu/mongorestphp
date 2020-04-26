@@ -10,7 +10,6 @@ class FamilyMemberModel {
 
     use family\AuthTrait;
 
-    private $requiredFields = ["username", "email", "password"];
 
     function __construct($u, $e, $p)
     {

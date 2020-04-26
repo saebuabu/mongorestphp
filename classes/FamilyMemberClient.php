@@ -9,6 +9,7 @@ require_once 'classes/AuthTrait.php';
 class FamilyMemberClient extends MongoClient
 {
     use family\AuthTrait;
+    private $requiredFields = ["username", "email", "password"];
 
     private $fmember;
     function __construct($db,$coll)
@@ -45,7 +46,7 @@ class FamilyMemberClient extends MongoClient
 
         if (!empty($u) && !empty($e) && !empty($p)) {
             $this->fmember = new FamilyMemberModel($u,$e,$p);
-            parent::Create($this->fmember);           
+            parent::Create($this->fmember, $this->requiredFields);
         }  
         else {
             return "All fields are required";

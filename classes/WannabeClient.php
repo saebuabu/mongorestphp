@@ -4,8 +4,8 @@ require 'classes/WannabeModel.php';
 
 class WannabeClient extends MongoClient
 {
-
     public $lastid;
+    public $requiredFields = ["name","father","mother","email"];
 
     function __construct($db, $coll)
     {
@@ -18,8 +18,15 @@ class WannabeClient extends MongoClient
     public function Add($name,$father,$mother,$email)
     {
             $this->wannabe = new WannabeModel($name,$father,$mother,$email);
-            $status = parent::Create($this->wannabe);
 
+            //Check op reeds bestaand naam/email combinatie
+            $c = parent::GetFirst( Array("name" => $name, "email" => $email) );
+
+            if ( !empty($c) ) {
+                return "Registration $name/$email already exists";
+            }
+
+            $status = parent::Create($this->wannabe, $this->requiredFields);
             $this->lastid = $this->wannabe->_id;
 
             return $status;
