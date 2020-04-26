@@ -2,7 +2,7 @@
 require 'vendor/autoload.php';
 require_once 'classes/AuthTrait.php';
 
-class FamilyMember {
+class FamilyMemberModel {
     public $_id;
     public $username;
     public $email;

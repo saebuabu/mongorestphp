@@ -1,7 +1,7 @@
 <?php
 require 'vendor/autoload.php';
 
-class Checkin
+class CheckinModel
 {
     public $_id;
     public $group;

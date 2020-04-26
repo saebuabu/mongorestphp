@@ -1,8 +1,8 @@
 <?php
-require 'classes/Mongoclient.php';
-require 'classes/Checkin.php';
+require 'classes/MongoClient.php';
+require 'classes/CheckinModel.php';
 
-class CheckinClient extends Mongoclient
+class CheckinClient extends MongoClient
 {
     private $checkin;
     public $lastid;
@@ -17,7 +17,7 @@ class CheckinClient extends Mongoclient
     // Group(Vriendengroepje), Bar(naam cafe), Dweller (de zatlap), latitude en longitude(locatie cafe)
     public function Checkin($g,$b,$d,$lat,$lon)
     {
-            $this->checkin = new Checkin($g,$b,$d,$lat,$lon);
+            $this->checkin = new CheckinModel($g,$b,$d,$lat,$lon);
             $this->checkin->checkIn();
 
             parent::Create($this->checkin);
@@ -28,7 +28,7 @@ class CheckinClient extends Mongoclient
     public function Checkout($g,$b,$d)
     {
         //ophalen op basis van
-        $this->checkin = new Checkin($g,$b,$d);
+        $this->checkin = new CheckinModel($g,$b,$d);
 
         $retrievedDoc = parent::GetFirst($this->checkin);
 

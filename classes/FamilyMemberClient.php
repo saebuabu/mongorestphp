@@ -1,12 +1,12 @@
 <?php
 
 
-require 'classes/Mongoclient.php';
-require 'classes/FamilyMember.php';
+require 'classes/MongoClient.php';
+require 'classes/FamilyMemberModel.php';
 require_once 'classes/AuthTrait.php';
 
 
-class FamilyMemberClient extends Mongoclient
+class FamilyMemberClient extends MongoClient
 {
     use family\AuthTrait;
 
@@ -44,7 +44,7 @@ class FamilyMemberClient extends Mongoclient
         }
 
         if (!empty($u) && !empty($e) && !empty($p)) {
-            $this->fmember = new FamilyMember($u,$e,$p);
+            $this->fmember = new FamilyMemberModel($u,$e,$p);
             parent::Create($this->fmember);           
         }  
         else {

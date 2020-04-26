@@ -5,7 +5,7 @@ require 'vendor/autoload.php';
 require dirname(__FILE__).'/../../../keys.php';
 
 
-class Mongoclient {
+class MongoClient {
     var $Client;
     var $Dbstr;
     var $Collection;
@@ -57,8 +57,8 @@ class Mongoclient {
         return null; 
     }
 
+    //insert into een collection
     function Create($doc) {
-
         //Empty validation, werkt niet deze validatie
         $assA = [];
         foreach ($doc as $key => $value) {
@@ -70,7 +70,7 @@ class Mongoclient {
             }
         } // einde validatie
 
-        try {    
+        try {
             $this->Collection->insertOne($doc);
         }
         catch (Exception $e) {
@@ -79,13 +79,15 @@ class Mongoclient {
         return '';
     }
 
+    //update van een collection
     function AddUpdate($doc) {
         try {    
             $this->Collection->ReplaceOne($doc);
         }
         catch (Exception $e) {
-            die($e->GetMessage());
+            return $e->GetMessage();
         }
+        return '';
     }
 
 }
