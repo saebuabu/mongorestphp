@@ -46,7 +46,7 @@ class MongoClient {
         return $this->Collection->find($searchArr);
     }
 
-    //De eerste rij ophalen
+    //De eerste willekeurige rij ophalen
     function GetFirst($searchArr) {
         $cursor =  $this->Collection->find($searchArr);
 
@@ -55,6 +55,25 @@ class MongoClient {
 
         // or return null;
         return null; 
+    }
+
+    // $searchArr is de filter
+    // $sortArr is de sortering
+    // De  Laatste/eerste rij ophalen gesorteerd op $sortArray
+    function GetLast($searchArr = Array(),$sortArray) {
+
+        $cursor =  $this->Collection->find($searchArr);
+        //werkt niet?? Nog uitzoeken
+        //$cursor->sort($sortArray);
+
+        //return last inserted, niet mooi maar werkt wel
+        foreach ($cursor as $doc) {
+            $lastdoc = $doc;
+        }
+
+
+        // or
+        return $lastdoc;
     }
 
     //insert into een collection
