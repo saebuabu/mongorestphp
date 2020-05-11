@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Socket test</title>
+</head>
+<body>
+<h1>Testje</h1>
+
+
+<script>
+    var conn = new WebSocket('ws://127.0.0.1:8081');
+    conn.onopen = function(e) {
+        alert("Connection established!");
+    };
+
+    conn.onmessage = function(e) {
+        console.log(e.data);
+    };
+</script>
+</body>
+</html>
