@@ -25,6 +25,22 @@ class ArtClient extends MongoClient
         parent::Create($this->artmodel);
     }
 
+    public function GetAllNames() {
+        //Alle artiesten van de schilderij ophalen
+        $alldocs =  parent::GetAllAsCursor();
+
+        $alldocs = $alldocs->toArray();
+        $filteredDocs = [];
+        foreach ($alldocs as $doc) {
+            //plaatje zelf niet meesturen, beetje teveel van het goeie
+            unset($doc['imagedata']);
+            $doc['imagecreated'] = date('d/m G:s',$doc['imagecreated']);
+            $filteredDocs[] = $doc;
+        }
+
+        return $filteredDocs;
+    }
+
     public function GetLast() {
         //Laatste toegevoegde imagedrawing ophalen
         return parent::GetLast( Array(), Array( 'imagecreated' => -1) );
