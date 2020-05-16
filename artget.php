@@ -13,5 +13,12 @@ require 'classes/JsonIO.php';
 
 // connectie naar database, collectie
 $userdrawing = new ArtClient('art', 'userdrawing');
-$res = $userdrawing->GetLast();
+if (isset($_GET['a']) && !empty($_GET['a']))
+{
+    $res = $userdrawing->GetFrom($_GET['a']);
+}
+else
+{
+    $res = $userdrawing->GetLast();
+}
 JsonIO::WriteOk($res);

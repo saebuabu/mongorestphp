@@ -46,6 +46,11 @@ class ArtClient extends MongoClient
         return parent::GetLast( Array(), Array( 'imagecreated' => -1) );
     }
 
+    public function GetFrom($p) {
+        //imagedrawing op username ophalen
+        return parent::GetAsCursor( Array( 'username' => $p ));
+    }
+
     public function Update() {}
 
     public function Delete() {}
