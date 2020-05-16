@@ -22,7 +22,7 @@ class ArtClient extends MongoClient
         }
 
         $this->artmodel = new ArtModel($u,$i);
-        parent::Create($this->artmodel);
+        return parent::Create($this->artmodel);
     }
 
     public function GetAllNames() {
@@ -48,7 +48,7 @@ class ArtClient extends MongoClient
 
     public function GetFrom($p) {
         //imagedrawing op username ophalen
-        return parent::GetAsCursor( Array( 'username' => $p ));
+        return parent::GetFirstAsDoc( Array( 'username' => $p ));
     }
 
     public function Update() {}

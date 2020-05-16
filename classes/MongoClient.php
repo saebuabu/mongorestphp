@@ -43,6 +43,10 @@ class MongoClient {
 
     //Gefilterde lijst ophalen
     function GetAsCursor($searchArr) {
+        return $this->Collection->find($searchArr);
+    }
+
+    function GetFirstAsDoc($searchArr) {
         $cursor = $this->Collection->find($searchArr);
 
         foreach ($cursor as $doc) {
