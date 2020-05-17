@@ -41,6 +41,11 @@ class MongoClient {
         return $this->Collection->find();
     }
 
+    //Alle documents uit een collection ophalen, maar alleen specifieke vleden
+    function GetSpecifiedFieldsAsCursor($searchArr, $projectionArr) {
+        return $this->Collection->find($searchArr, Array('projection' => $projectionArr));
+    }
+
     //Gefilterde lijst ophalen
     function GetAsCursor($searchArr) {
         return $this->Collection->find($searchArr);
@@ -83,6 +88,22 @@ class MongoClient {
 
 
         // or
+        return $lastdoc;
+    }
+
+    // $searchArr is de filter
+    // $sortArr is de sortering
+    // De  Laatste/eerste rij ophalen gesorteerd op $sortArray
+    function GetLastDoc($searchArr = Array(),$sortArray, $projectionArray) {
+
+        $cursor =  $this->Collection->find($searchArr,Array('projection' => $projectionArray, 'sort' => $sortArray));
+
+        //return last inserted, niet
+        foreach ($cursor as $doc) {
+            $lastdoc = $doc;
+            break;
+        }
+        //opnieuw binnenhalen maar dan volledig
         return $lastdoc;
     }
 

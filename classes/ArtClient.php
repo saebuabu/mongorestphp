@@ -26,14 +26,13 @@ class ArtClient extends MongoClient
     }
 
     public function GetAllNames() {
-        //Alle artiesten van de schilderij ophalen
-        $alldocs =  parent::GetAllAsCursor();
+        //Alle artiesten van de schilderij ophalen, zonder imagedata (levert teveel verkeer op)
+        // eerste lege array is where clausule, tweede array is welke geselecteerd moeten worden
+        $alldocs =  parent::GetSpecifiedFieldsAsCursor(Array(), Array('username' => 1, 'imagecreated' => 1));
 
         $alldocs = $alldocs->toArray();
         $filteredDocs = [];
         foreach ($alldocs as $doc) {
-            //plaatje zelf niet meesturen, beetje teveel van het goeie
-            unset($doc['imagedata']);
             $doc['imagecreated'] = date('d/m G:s',$doc['imagecreated']);
             $filteredDocs[] = $doc;
         }
@@ -43,7 +42,10 @@ class ArtClient extends MongoClient
 
     public function GetLast() {
         //Laatste toegevoegde imagedrawing ophalen
-        return parent::GetLast( Array(), Array( 'imagecreated' => -1) );
+        //omgekeerde sortering op imagecreated
+        $doc = parent::GetLastDoc( Array(), Array( 'imagecreated' => -1), Array('imagedata' => 0) );
+
+        return parent::GetFirstAsDoc(Array( 'username' => $doc->username ));
     }
 
     public function GetFrom($p) {
