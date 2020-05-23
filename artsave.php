@@ -17,7 +17,7 @@ require 'classes/JsonIO.php';
 $userdrawing = new ArtClient('art', 'userdrawing');
 
 $res = $userdrawing->Save( $_POST['username'], $_POST['imagedata']);
-$img = new ImageFile(dirname(__FILE__)."\\images", $_POST['username']);
+$img = new ImageFile(dirname(__FILE__)."/images", $_POST['username']);
 $status = $img->saveImage($_POST['imagedata']);
 
 if ( $res  == '' ) {

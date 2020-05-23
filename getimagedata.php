@@ -10,7 +10,7 @@ require 'classes/ImageFile.php';
 require 'classes/JsonIO.php';
 require 'classes/ArtClient.php';
 
-$img = new ImageFile(dirname(__FILE__)."\\images", $_GET['u']);
+$img = new ImageFile(dirname(__FILE__)."/images", $_GET['u']);
 $imgdata = $img->getImage();
 
 if ($imgdata) {

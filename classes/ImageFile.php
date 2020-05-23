@@ -4,11 +4,11 @@ class ImageFile
 {
     //pad en bestandsnaam met pad
     private $baseSavePath;
-    private $fullFilename;
+    public $fullFilename;
 
     function __construct($p, $name)
     {
-        $this->baseSavePath = $p."\\";
+        $this->baseSavePath = $p."/";
         $this->fullFilename = $this->baseSavePath.$name;
     }
 
