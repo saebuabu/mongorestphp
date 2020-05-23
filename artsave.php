@@ -6,6 +6,8 @@
  **************/
 require "corsheaders.php";
 require 'classes/ArtClient.php';
+require 'classes/ImageFile.php';
+
 require 'classes/JsonIO.php';
 
 // get posted data, WERKT NIET
@@ -15,9 +17,11 @@ require 'classes/JsonIO.php';
 $userdrawing = new ArtClient('art', 'userdrawing');
 
 $res = $userdrawing->Save( $_POST['username'], $_POST['imagedata']);
+$img = new ImageFile(dirname(__FILE__)."\\images", $_POST['username']);
+$status = $img->saveImage($_POST['imagedata']);
 
-if ($res  == '') {
-    JsonIO::WriteOk(array($userdrawing->lastid));
+if ( $res  == '' ) {
+    JsonIO::WriteOk(array("id" => $userdrawing->lastid, "filestatus" => $status));
 } else {
     JsonIO::WriteError($res);
 }
