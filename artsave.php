@@ -16,7 +16,7 @@ require 'classes/JsonIO.php';
 // connectie naar database, collectie
 $userdrawing = new ArtClient('art', 'userdrawing');
 
-$res = $userdrawing->Save( $_POST['username'], $_POST['imagedata']);
+$res = $userdrawing->Save( $_POST['username'], $_POST['imagedata'], $_POST['country'] );
 $img = new ImageFile(dirname(__FILE__)."/images", $_POST['username']);
 $status = $img->saveImage($_POST['imagedata']);
 

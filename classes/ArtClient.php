@@ -14,21 +14,23 @@ class ArtClient extends MongoClient
         parent::SetCollection($coll);
     }
 
-    public function Save($u,$i) {
+    public function Save($u,$i, $cy) {
 
         $c = parent::GetAsCursor( Array("username" => $u) );
         if ( count($c->toArray()) > 0 ) {
             return "user '$u' already exists";
         }
 
-        $this->artmodel = new ArtModel($u,$i);
+        $this->artmodel = new ArtModel($u,$i, $cy);
         return parent::Create($this->artmodel);
     }
 
     public function GetAllNames() {
         //Alle artiesten van de schilderij ophalen, zonder imagedata (levert teveel verkeer op)
         // eerste lege array is where clausule, tweede array is welke geselecteerd moeten worden
-        $alldocs =  parent::GetSpecifiedFieldsAsCursor(Array(), Array('username' => 1, 'imagecreated' => 1));
+
+        date_default_timezone_set("Europe/Amsterdam");
+        $alldocs =  parent::GetSpecifiedFieldsAsCursor(Array(), Array('username' => 1, 'imagecreated' => 1, 'country' => 1));
 
         $alldocs = $alldocs->toArray();
         $filteredDocs = [];
